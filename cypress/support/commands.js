@@ -23,3 +23,6 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+const registerCypressGrep = require('@cypress/grep')    // specs execution filtering 
+registerCypressGrep()                                   // reference: https://github.com/cypress-io/cypress/tree/develop/npm/grep#install

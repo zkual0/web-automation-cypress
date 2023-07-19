@@ -1,8 +1,8 @@
-import { DashboardPage }    from "../page-objects/dashboard.page"
-import { LoginPage }        from "../page-objects/login.page"
-import { TopNavigationBarComponent } from "../page-objects/components/top-navigation-bar.component"
-import { YourCartPage }     from "../page-objects/your-cart.page"
-import { LeftSideMenuSliderComponent } from "../page-objects/components/left-side-menu.component"
+import { DashboardPage }                from "../page-objects/dashboard.page"
+import { LoginPage }                    from "../page-objects/login.page"
+import { TopNavigationBarComponent }    from "../page-objects/components/top-navigation-bar.component"
+import { YourCartPage }                 from "../page-objects/your-cart.page"
+import { LeftSideMenuSliderComponent }  from "../page-objects/components/left-side-menu.component"
 
 const loginPage          = new LoginPage()
 const dashboardPage      = new DashboardPage()
@@ -24,7 +24,7 @@ describe('on Dashboard page', ()=>{
             .loginToApp(username, password)
     })
 
-    it('user sees a set of listed products', ()=>{
+    it('user sees a set of listed products', { tags: '@smoke' }, ()=>{
         const expectedTitle = 'Swag Labs'
         const expectedListedProducts = [
             ["Sauce Labs Backpack", "carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.", '$29.99'],
@@ -42,7 +42,7 @@ describe('on Dashboard page', ()=>{
             .verifyListedProducts(expectedListedProducts)
     })
 
-    it('user is able to add a product to the cart', ()=>{
+    it('user is able to add a product to the cart', { tags: '@sanity' }, ()=>{
         dashboardPage
             .clickAddToCart(productName1)
             .clickAddToCart(productName2)
@@ -50,7 +50,7 @@ describe('on Dashboard page', ()=>{
             .verifyCartIconCount('2')
     })
 
-    it('user is able to remove a product from the cart (directly from the dashboard)', ()=>{
+    it('user is able to remove a product from the cart (directly from the dashboard)', { tags: '@sanity' }, ()=>{
         dashboardPage
             .clickAddToCart(productName1)
             .clickAddToCart(productName2)
@@ -66,7 +66,7 @@ describe('on Dashboard page', ()=>{
 
     describe('when sorting products', ()=>{
 
-        it('user is able to sort in Ascending order (Z to A)', ()=>{
+        it('user is able to sort in Ascending order (Z to A)', { tags: '@smoke' }, ()=>{
             const expectedListedProducts = [
                 'Test.allTheThings() T-Shirt (Red)',
                 'Sauce Labs Onesie',
@@ -81,7 +81,7 @@ describe('on Dashboard page', ()=>{
                 .verifyListedProducts(expectedListedProducts, {name:true})
         })
 
-        it('user is able to sort in Descending order (A to Z)',()=>{
+        it('user is able to sort in Descending order (A to Z)', { tags: '@smoke' },()=>{
             const expectedListedProducts = [
                 'Sauce Labs Backpack',
                 'Sauce Labs Bike Light',
@@ -97,7 +97,7 @@ describe('on Dashboard page', ()=>{
                 .verifyListedProducts(expectedListedProducts, {name:true})
         })
 
-        it('user is able to sort by Low to High price', ()=>{
+        it('user is able to sort by Low to High price', { tags: '@smoke' }, ()=>{
             const expectedListedProducts = [
                 ['Sauce Labs Onesie', '$7.99'],
                 ['Sauce Labs Bike Light', '$9.99'],
@@ -112,7 +112,7 @@ describe('on Dashboard page', ()=>{
                 .verifyListedProducts(expectedListedProducts, {name:true, price:true})
         })
 
-        it('user is able to sort by High to Low price', ()=>{
+        it('user is able to sort by High to Low price', { tags: '@smoke' }, ()=>{
             const expectedListedProducts = [
                 ['Sauce Labs Fleece Jacket', '$49.99'],
                 ['Sauce Labs Backpack', '$29.99'],
@@ -129,7 +129,7 @@ describe('on Dashboard page', ()=>{
     })
 
     describe('when working with the cart component', ()=>{
-        it('user is able to see listed its recently added products', ()=>{
+        it('user is able to see listed its recently added products', { tags: '@smoke' }, ()=>{
             const expectedListedProducts = [
                 ['Sauce Labs Bike Light', "A red light isn't the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.", '$9.99'],
                 ["Sauce Labs Fleece Jacket", "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.", '$49.99']
@@ -146,7 +146,7 @@ describe('on Dashboard page', ()=>{
                 .verifyListedProducts(expectedListedProducts)
         })
 
-        it('user is able to remove a product from the cart', ()=>{
+        it('user is able to remove a product from the cart', { tags: '@sanity' }, ()=>{
             const expectedListedProducts = [["Sauce Labs Fleece Jacket", "It's not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.", '$49.99']]
             
             dashboardPage
@@ -164,7 +164,7 @@ describe('on Dashboard page', ()=>{
 
     describe('when working with the left side menu component', ()=>{
 
-        it('user is able to close the menu by clicking X close button',()=>{
+        it('user is able to close the menu by clicking X close button', { tags: '@smoke' },()=>{
             topNavigationBar
                 .clickBurger()
             
@@ -177,7 +177,7 @@ describe('on Dashboard page', ()=>{
 
         // skipped: originally, emergent menus or modals must get closed after clicking out from them
         //          in this case this component is not honoring that behavior
-        it.skip('[BUG: ISSUE-0001] user is able to close the menu by clicking out from the menu', ()=>{
+        it.skip('[BUG: ISSUE-0001] user is able to close the menu by clicking out from the menu', { tags: '@smoke' }, ()=>{
             topNavigationBar
                 .clickBurger()
             
@@ -188,7 +188,7 @@ describe('on Dashboard page', ()=>{
                 .verifyLeftSideMenuIsNotVisible()
         })
 
-        it('user can get back to the landing dashboard page ("Products" page)', ()=>{
+        it('user can get back to the landing dashboard page ("Products" page)', { tags: '@smoke' }, ()=>{
             const expectedYourCartPageTitle = 'Your Cart'
             const expectedProductsPageTitle = 'Products'
             
@@ -207,7 +207,7 @@ describe('on Dashboard page', ()=>{
 
         // skipped: skipped due a lot of nested domain redirects. usually by using cy.origin command is enough
         //          but in this case the redirect has a lot of them so it makes it unstable
-        it.skip('[BUG: ISSUE-0002]user is able to see about page', ()=>{
+        it.skip('[BUG: ISSUE-0002]user is able to see about page', { tags: '@smoke'}, ()=>{
             topNavigationBar
                 .clickBurger()
             leftSideMenuSlider
@@ -218,7 +218,7 @@ describe('on Dashboard page', ()=>{
                 .verifyAboutPageTitle()
         })
 
-        it('user is able to logout', ()=>{
+        it('user is able to logout', { tags: '@sanity' }, ()=>{
             topNavigationBar
                 .clickBurger()
             
@@ -231,7 +231,7 @@ describe('on Dashboard page', ()=>{
                 .elements.loginButton().should('exist')
         })
 
-        it('user is able to reset the app state', ()=>{
+        it('user is able to reset the app state', { tags: '@sanity' }, ()=>{
             dashboardPage
                 .clickAddToCart(productName1)
                 .clickAddToCart(productName2)
@@ -246,8 +246,5 @@ describe('on Dashboard page', ()=>{
             topNavigationBar
                 .verifyCartIconCountIsEmpty()
         })
-
-    })
-
-    
+    })  
 })
