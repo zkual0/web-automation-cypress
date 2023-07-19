@@ -4,13 +4,15 @@
   "description": "Test suite for the SourceDemo front end",
   "main": "index.js",
   "scripts": {
-    "cypress:dashboard": "cypress open",
-    "cypress:all":       "cypress run",
-    "cy:run:chrome":     "cypress run --browser chrome",
-    "cy:run:firefox":    "cypress run --browser firefox",
-    "cy:run:edge":       "cypress run --browser edge"
+    "cy:open:dashboard":      "cypress open",
+    "cy:run:full_regression": "cypress run --browser chrome",
+    "cy:run:smoke":           "npx cypress run --env grepTags=@smoke,grepOmitFiltered=true",
+    "cy:run:sanity":          "npx cypress run --env grepTags=@sanity,grepOmitFiltered=true",
+    "cy:run:e2e":             "npx cypress run --env grepTags=@e2e,grepOmitFiltered=true",
+    "cmd:show:filters":       "echo '+ Available Specs Execution Filters:' && find . -iname '*.cy.js' -exec grep -Ei 'tags:' {} + | grep -oEi '@[a-zA-Z0-9]+' | sort | uniq"
   },
   "devDependencies": {
+    "@cypress/grep": "^3.1.5",
     "cypress": "^12.14.0"
   }
 }

@@ -26,7 +26,7 @@ describe('on Swag Labs',()=>{
             .loginToApp(username, password)
     })
 
-    it('user is able to complete the shopping flow',()=>{
+    it('user is able to complete the shopping flow', { tags: '@e2e' },()=>{
         const userDetails = {
             firstName:'qa', 
             lastName:'automation', 

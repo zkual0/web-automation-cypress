@@ -1,5 +1,5 @@
-import { DashboardPage } from "../page-objects/dashboard.page"
-import { LoginPage } from "../page-objects/login.page"
+import { DashboardPage }  from "../page-objects/dashboard.page"
+import { LoginPage }      from "../page-objects/login.page"
 
 const loginPage     = new LoginPage()
 const dashboardPage = new DashboardPage()
@@ -11,7 +11,7 @@ describe('on Login page', () => {
   })
 
   context('when using valid credentials', ()=>{
-    it('user makes login successfully when using a fresh account', ()=>{
+    it('user makes login successfully when using a fresh account', { tags: '@sanity' }, ()=>{
       const username = 'standard_user'
       const password = 'secret_sauce'
       const expectedDashboardTitle = 'Products'
@@ -27,7 +27,7 @@ describe('on Login page', () => {
     })
   })
 
-  context('when using wrong credentials', ()=>{
+  context('when using wrong credentials', { tags: ['@smoke','@errorsHandling'] }, ()=>{
     it('the app shows a specific error message when password is empty', ()=>{
       const username = 'standard_user'
       const password = null
@@ -37,6 +37,7 @@ describe('on Login page', () => {
         .loginToApp(username, password)
         .verifyErrorMessage(errorMsg)
     })
+
     it('the app shows a specific error message when no username is empty', ()=>{
       const username = null
       const password = 'secret_sauce'
@@ -58,7 +59,7 @@ describe('on Login page', () => {
     })
   })
 
-  context('when using damaged credentials',()=>{
+  context('when using damaged credentials', ()=>{
     it('the login shows a error message when the account is locked out')
     it('the dashboard shows repeated product images')
     it('the login shows a delay when has a performance_glitch_user ')
