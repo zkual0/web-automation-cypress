@@ -17,3 +17,12 @@
 4) launch cypress dashboard
 
    `npx cypress open`
+
+Optional:
+- to list available scripts run:
+
+   `npm run`
+
+- to run a specific run command, use:
+
+   `npm run <command> // ie: "npm run cypress:dashboard"`

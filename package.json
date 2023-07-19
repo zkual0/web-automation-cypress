@@ -1,4 +1,15 @@
 {
+  "name": "jfoxx_web_cypress_automation",
+  "version": "1.0.0",
+  "description": "Test suite for the SourceDemo front end",
+  "main": "index.js",
+  "scripts": {
+    "cypress:dashboard": "cypress open",
+    "cypress:all":       "cypress run",
+    "cy:run:chrome":     "cypress run --browser chrome",
+    "cy:run:firefox":    "cypress run --browser firefox",
+    "cy:run:edge":       "cypress run --browser edge"
+  },
   "devDependencies": {
     "cypress": "^12.14.0"
   }
